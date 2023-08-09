@@ -23,6 +23,6 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
 test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider", help = "Roda os testes e aborta se houver falha."}
-cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov=hello_world -p no:cacheprovider", help = "Run test and give us a coverage report."}
+cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov=hello_world -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 lint = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_world", help = "Faz a formatação do código."}
 clean = {cmd = "find . -not -path './.venv/*' | grep -E \"(\\.pytest_cache|__pycache__|\\.py[co]$)\" | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
