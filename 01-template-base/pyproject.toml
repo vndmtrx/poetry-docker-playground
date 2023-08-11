@@ -1,22 +1,18 @@
 [tool.poetry]
-name = "01-hello-world"
+name = "01-template-base"
 version = "0.1.0"
 description = "Projeto com modelo de pasta para uso com Python"
 repository = "https://github.com/vndmtrx/poetry-fastapi-container"
 authors = ["Eduardo Rolim <vndmtrx@duck.com>"]
 readme = "README.md"
-packages = [{include = "hello_world"}]
+packages = [{include = "template_base"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.101.0"
-uvicorn = {extras = ["standard"], version = "^0.23.2"}
-gunicorn = "^21.2.0"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
 pytest-cov = "^4.1.0"
-httpx = "^0.24.1"
 pytest-profiling = "^1.7.0"
 
 [tool.poetry.group.dev.dependencies]
@@ -33,16 +29,14 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn hello_world.main:app --reload", help = "Roda o projeto usando uvicorn"}
-
 test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider", help = "Roda os testes e aborta se houver falha."}
 profile = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --profile-svg -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
-cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov=hello_world -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
+cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov=template_base -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 
-pre_style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_world tests --diff --color --safe", help = "Mostra erros de estilo."}
-style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_world tests --color --safe", help = "Faz a formatação do código."}
+pre_style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black template_base tests --diff --color --safe", help = "Mostra erros de estilo."}
+style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black template_base tests --color --safe", help = "Faz a formatação do código."}
 
-linter = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pylint --recursive=y hello_world", help = "Linter do código por inconsistências."}
+linter = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pylint --recursive=y template_base", help = "Linter do código por inconsistências."}
 genpylintrc = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pylint --generate-rcfile > .pylintrc", help = "Criação do arquivo de configuração do pylint."}
 
 clean = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}

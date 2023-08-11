@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from hello_world import __version__
+from template_base import __version__
 
 
 def test_version():
