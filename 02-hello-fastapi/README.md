@@ -1,0 +1,1 @@
+# Projeto inicial de testes com Pyenv, Poetry e Contêineres.
