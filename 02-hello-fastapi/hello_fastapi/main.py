@@ -8,8 +8,8 @@ app = FastAPI()
 
 @app.get("/")
 def rota_root():
-  """Hello World na rota /"""
-  return {"mensagem": "Hello, FastAPI!"}
+    """Hello World na rota /"""
+    return {"mensagem": "Hello, FastAPI!"}
 
 
 @app.get("/users/me")
