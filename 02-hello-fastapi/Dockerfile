@@ -1,6 +1,6 @@
 # Dockerfile
 # Utiliza build multi-stage, o que requer Docker em versão 17.05 or posterior
-# See https://docs.docker.com/develop/develop-images/multistage-build/
+# Veja em https://docs.docker.com/develop/develop-images/multistage-build/
 
 #####################################################################
 # Criação de uma imagem base com variáveis de ambiente compartilhadas
