@@ -47,11 +47,11 @@ style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --co
 linter = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pylint --recursive=y hello_fastapi", help = "Linter do código por inconsistências."}
 genpylintrc = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pylint --generate-rcfile > .pylintrc", help = "Criação do arquivo de configuração do pylint."}
 
-clean = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
-prune = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.venv|\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
-
 pre_run_prod = {cmd="docker build --target prod -t local/prod:latest .", help=""}
 run_prod = {cmd="docker run --rm -p 8000:8000 prod", help=""}
 
 pre_run_dev = {cmd="docker build --target dev -t local/dev:latest .", help=""}
 run_dev = {cmd="docker run --rm -p 8000:8000 local/dev", help=""}
+
+clean = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
+prune = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.venv|\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
