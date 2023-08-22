@@ -55,12 +55,12 @@ COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
 
 # O venv já possui as dependências de execução instaladas
 WORKDIR $PYSETUP_PATH
-COPY . .
+COPY --chmod=755 . .
 RUN poetry install
 
 EXPOSE 8000
-HEALTHCHECK --interval=10s --retries=2 CMD curl --fail http://localhost:8000/ || exit 1
-CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "hello_fastapi.main:app"]
+HEALTHCHECK --interval=10s --retries=2 CMD ["./healthcheck.sh", "localhost", "8000"]
+CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "hello_fastapi:app"]
 
 
 #################################################################
@@ -71,14 +71,15 @@ FROM python-base AS prod
 ENV FASTAPI_ENV=prod
 
 COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV
-COPY gunicorn_conf.py /gunicorn_conf.py
+
+WORKDIR /prod
 
 RUN groupadd -g 1500 poetry && useradd -m -u 1500 -g poetry poetry
-
-COPY --chown=poetry:poetry ./hello_fastapi /hello_fastapi
 USER poetry
-WORKDIR /hello_fastapi
+
+COPY --chown=poetry:poetry --chmod=755 gunicorn_conf.py healthcheck.sh .
+COPY --chown=poetry:poetry ./hello_fastapi /prod/hello_fastapi
 
 EXPOSE 8000
-HEALTHCHECK --interval=30s --retries=3 CMD curl --fail http://localhost:8000/ || exit 1
-CMD ["gunicorn", "--worker-class", "uvicorn.workers.UvicornWorker", "--config", "/gunicorn_conf.py", "main:app"]
+HEALTHCHECK --interval=30s --retries=3 CMD ["./healthcheck.sh", "localhost", "8000"]
+CMD ["gunicorn", "--access-logfile=-", "--log-file=-", "--worker-class", "uvicorn.workers.UvicornWorker", "--config", "./gunicorn_conf.py", "hello_fastapi:app"]
