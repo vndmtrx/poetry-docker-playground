@@ -18,16 +18,12 @@ ENV PYTHONUNBUFFERED=1 \
     
 ENV PATH="$VIRTUAL_ENV/bin:$POETRY_HOME/bin:$PATH"
 
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y curl \
-    && rm -rf /var/lib/apt/lists/*
-
 
 ######################################################
 # Imagem builder-base usada para gerar as dependências
 FROM python-base AS builder-base
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends build-essential \
+    && apt-get install -y --no-install-recommends curl build-essential \
     && rm -rf /var/lib/apt/lists/*
 
 # Instalação do Poetry - respeita $POETRY_VERSION e $POETRY_HOME
