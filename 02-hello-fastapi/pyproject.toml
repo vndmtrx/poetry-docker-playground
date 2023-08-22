@@ -9,7 +9,7 @@ packages = [{include = "hello_fastapi"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-fastapi = "^0.101.0"
+fastapi = "^0.101.1"
 uvicorn = {extras = ["standard"], version = "^0.23.2"}
 gunicorn = "^21.2.0"
 
