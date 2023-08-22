@@ -30,12 +30,15 @@ python_functions = ["*_test"]
 python_classes = ["*Test"]
 testpaths = ["tests/unit", "tests/integration"]
 
+[tool.pylint.'MESSAGES CONTROL']
+disable = "too-few-public-methods"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn hello_fastapi:app --reload", help = "Roda o projeto usando uvicorn"}
+uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn --log-config logging.conf hello_fastapi:app --reload", help = "Roda o projeto usando uvicorn"}
 
 test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider", help = "Roda os testes e aborta se houver falha."}
 profile = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --profile-svg -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
