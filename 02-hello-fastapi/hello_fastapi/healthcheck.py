@@ -18,8 +18,8 @@ class HealthCheck(BaseModel):
 @health.get(
     "/health",
     tags=["healthcheck"],
-    summary="Perform a Health Check",
-    response_description="Return HTTP Status Code 200 (OK)",
+    summary="Efetua checagem de saúde da API para o container.",
+    response_description="Retorna código de status 200 (OK) usando uma classe Pydantic.",
     status_code=status.HTTP_200_OK,
     response_model=HealthCheck,
 )
