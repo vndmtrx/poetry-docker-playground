@@ -56,7 +56,7 @@ RUN poetry install
 
 EXPOSE 8000
 HEALTHCHECK --interval=10s --retries=2 CMD ["./healthcheck.sh", "localhost", "8000"]
-CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "hello_fastapi:app"]
+CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "--log-config", "./logging.conf", "hello_fastapi:app"]
 
 
 #################################################################
@@ -73,9 +73,9 @@ WORKDIR /prod
 RUN groupadd -g 1500 poetry && useradd -m -u 1500 -g poetry poetry
 USER poetry
 
-COPY --chown=poetry:poetry --chmod=755 gunicorn_conf.py healthcheck.sh .
-COPY --chown=poetry:poetry ./hello_fastapi /prod/hello_fastapi
+COPY --chown=poetry:poetry --chmod=755 logging.conf gunicorn_conf.py healthcheck.sh .
+COPY --chown=poetry:poetry ./hello_fastapi ./hello_fastapi
 
 EXPOSE 8000
 HEALTHCHECK --interval=30s --retries=3 CMD ["./healthcheck.sh", "localhost", "8000"]
-CMD ["gunicorn", "--access-logfile=-", "--log-file=-", "--worker-class", "uvicorn.workers.UvicornWorker", "--config", "./gunicorn_conf.py", "hello_fastapi:app"]
+CMD ["gunicorn", "--access-logfile=-", "--log-file=-", "--worker-class", "uvicorn.workers.UvicornWorker", "--config", "./gunicorn_conf.py", "--log-config", "./logging.conf", "hello_fastapi:app"]
