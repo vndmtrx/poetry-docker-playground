@@ -35,11 +35,11 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.taskipy.tasks]
-uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn hello_fastapi.main:app --reload", help = "Roda o projeto usando uvicorn"}
+uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn hello_fastapi:app --reload", help = "Roda o projeto usando uvicorn"}
 
 test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider", help = "Roda os testes e aborta se houver falha."}
 profile = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --profile-svg -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
-cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov=hello_fastapi -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
+cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov-report term-missing:skip-covered --cov=hello_fastapi -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 
 pre_style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --diff --color --safe", help = "Mostra erros de estilo."}
 style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --color --safe", help = "Faz a formatação do código."}
