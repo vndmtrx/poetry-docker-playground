@@ -42,7 +42,7 @@ uvicorn = {cmd = "export PYTHONDONTWRITEBYTECODE=1; poetry run uvicorn --log-con
 
 test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider", help = "Roda os testes e aborta se houver falha."}
 profile = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --profile-svg -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
-cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov-report term-missing:skip-covered --cov=hello_fastapi -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
+cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov-report html:htmlcov --cov-report term-missing:skip-covered --cov=hello_fastapi -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 
 pre_style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --diff --color --safe", help = "Mostra erros de estilo."}
 style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --color --safe", help = "Faz a formatação do código."}
@@ -56,5 +56,5 @@ run_prod = {cmd="docker run --rm -p 8000:8000 local/prod", help=""}
 pre_run_dev = {cmd="docker build --target dev -t local/dev:latest .", help=""}
 run_dev = {cmd="docker run --rm -p 8000:8000 local/dev", help=""}
 
-clean = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
-prune = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.venv|\\.coverage$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
+clean = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.coverage$|htmlcov$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
+prune = {cmd = "find . -not -path './.venv/*' | grep -E '(\\.venv|\\.coverage$|htmlcov$|\\.pytest_cache$|prof$|dist$|__pycache__|\\.py[co]$)' | xargs rm -rf", help = "Limpa o projeto de arquivos gerados automaticamente."}
