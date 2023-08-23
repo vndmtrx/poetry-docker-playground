@@ -70,11 +70,11 @@ COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV
 
 WORKDIR /prod
 
-RUN groupadd -g 1500 poetry && useradd -m -u 1500 -g poetry poetry
+RUN groupadd -g 1500 gunicorn && useradd -m -u 1500 -g gunicorn gunicorn
 USER poetry
 
-COPY --chown=poetry:poetry --chmod=755 logging.conf gunicorn_conf.py healthcheck.sh .
-COPY --chown=poetry:poetry ./hello_fastapi ./hello_fastapi
+COPY --chown=gunicorn:gunicorn --chmod=755 logging.conf gunicorn_conf.py healthcheck.sh .
+COPY --chown=gunicorn:gunicorn ./hello_fastapi ./hello_fastapi
 
 EXPOSE 8000
 HEALTHCHECK --interval=30s --retries=3 CMD ["./healthcheck.sh", "localhost", "8000"]
