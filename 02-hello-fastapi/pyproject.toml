@@ -44,6 +44,9 @@ test = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest -x -p no:cacheprovider",
 profile = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --profile-svg -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 cov = {cmd = "export PYTHONDONTWRITEBYTECODE=1; pytest --cov-report html:htmlcov --cov-report term-missing:skip-covered --cov=hello_fastapi -p no:cacheprovider", help = "Roda testes e entrega um relatório de cobertura do código."}
 
+pre_dockercov = {cmd="docker build --target hello-fastapi-cov --tag local/hello-fastapi-cov:latest .", help=""}
+dockercov = {cmd="docker run --rm -p 8000:8000 local/hello-fastapi-cov", help=""}
+
 pre_style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --diff --color --safe", help = "Mostra erros de estilo."}
 style = {cmd = "export PYTHONDONTWRITEBYTECODE=1; black hello_fastapi tests --color --safe", help = "Faz a formatação do código."}
 

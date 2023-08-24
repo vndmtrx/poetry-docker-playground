@@ -59,6 +59,17 @@ HEALTHCHECK --interval=10s --retries=2 CMD ["./healthcheck.sh", "localhost", "80
 CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "--log-config", "./logging.conf", "hello_fastapi:app"]
 
 
+###########################################
+# Imagem para testes de cobertura do código
+FROM hello-fastapi-dev as hello-fastapi-cov
+
+RUN poetry run task cov
+WORKDIR $PYSETUP_PATH/htmlcov
+
+EXPOSE 8000
+CMD ["python", "-m", "http.server"]
+
+
 #################################################################
 # Imagem de produção, que usa uma instalação limpa do python-base
 # e copia somente as dependências de execução que foram criadas em
