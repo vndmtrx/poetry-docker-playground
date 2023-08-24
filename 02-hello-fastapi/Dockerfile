@@ -82,7 +82,7 @@ COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV
 WORKDIR /prod
 
 RUN groupadd -g 1500 gunicorn && useradd -m -u 1500 -g gunicorn gunicorn
-USER poetry
+USER gunicorn
 
 COPY --chown=gunicorn:gunicorn --chmod=755 logging.conf gunicorn_conf.py healthcheck.sh .
 COPY --chown=gunicorn:gunicorn ./hello_fastapi ./hello_fastapi
