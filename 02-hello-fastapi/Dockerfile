@@ -42,7 +42,7 @@ RUN sed -e '/^packages/s/^/#/' -i pyproject.toml && poetry install --only main
 # Imagem de desenvolvimento que instala todas as dependências
 # pode ser usada para desenvolver código.
 # por exemplo, usando docker-compose para montar a pasta local em /app
-FROM python-base as dev
+FROM python-base as hello-fastapi-dev
 ENV FASTAPI_ENV=dev
 
 # Copia o poetry e o venv para a imagem
@@ -63,7 +63,7 @@ CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "--log-config", "./
 # Imagem de produção, que usa uma instalação limpa do python-base
 # e copia somente as dependências de execução que foram criadas em
 # builder-base
-FROM python-base AS prod
+FROM python-base AS hello-fastapi-prod
 ENV FASTAPI_ENV=prod
 
 COPY --from=builder-base $VIRTUAL_ENV $VIRTUAL_ENV
