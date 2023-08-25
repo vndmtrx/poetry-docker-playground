@@ -1,5 +1,5 @@
-# poetry-fastapi-container
-Um projeto FastAPI criado com Poetry e gerando uma imagem de contêiner
+# poetry-docker-playground
+Um projeto para se fazer experimentos com Python, Poetry e Docker
 
 ## Dependências
 
